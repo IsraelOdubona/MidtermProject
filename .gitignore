@@ -1,0 +1,11 @@
+# Python cache files
+__pycache__/
+*.pyc
+
+# IDE files
+.idea/
+.vscode/
+
+# Mac/Windows junk
+.DS_Store
+Thumbs.db
