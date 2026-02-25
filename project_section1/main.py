@@ -1,3 +1,4 @@
+from pathlib import Path
 import db
 
 POSITIONS = ("C", "1B", "2B", "3B", "SS", "LF", "CF", "RF", "P")
@@ -5,6 +6,7 @@ POSITIONS = ("C", "1B", "2B", "3B", "SS", "LF", "CF", "RF", "P")
 LINE_LEN = 64
 LINE = "=" * LINE_LEN
 DASH = "-" * LINE_LEN
+CSV_PATH = Path(__file__).with_name("players.csv")
 
 
 def display_menu():
@@ -67,7 +69,7 @@ def display_lineup(players):
     print(DASH)
     for i, p in enumerate(players, start=1):
         name, pos, ab, hits = p
-        shown = first_name_only(name)   # ✅ Section 1 requirement
+        shown = first_name_only(name) 
         print(f"{i:<2} {shown:<20} {pos:<5} {ab:>6} {hits:>6} {avg(ab, hits):>7.3f}")
     print()
 
@@ -156,7 +158,7 @@ def edit_stats(players):
 
 
 def main():
-    players = db.read_players("players.csv")
+    players = db.read_players(CSV_PATH)
 
     while True:
         display_menu()
@@ -166,19 +168,19 @@ def main():
             display_lineup(players)
         elif option == "2":
             add_player(players)
-            db.write_players(players, "players.csv")
+            db.write_players(players, CSV_PATH)
         elif option == "3":
             remove_player(players)
-            db.write_players(players, "players.csv")
+            db.write_players(players, CSV_PATH)
         elif option == "4":
             move_player(players)
-            db.write_players(players, "players.csv")
+            db.write_players(players, CSV_PATH)
         elif option == "5":
             edit_position(players)
-            db.write_players(players, "players.csv")
+            db.write_players(players, CSV_PATH)
         elif option == "6":
             edit_stats(players)
-            db.write_players(players, "players.csv")
+            db.write_players(players, CSV_PATH)
         elif option == "7":
             print("Bye!")
             break
